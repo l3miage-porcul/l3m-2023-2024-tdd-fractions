@@ -145,3 +145,31 @@ describe("Division de fractions", () => {
     });
     
 });
+
+describe("Addition de fractions", () => {
+    it("should be possible to add 3/2 to 4/5 and get 23/10", () => {
+        const f32 = new Fraction(3, 2);
+        const f45 = new Fraction(4, 5);
+        const f65 = f32.add(f45);
+        expect(f65.numérateur()).toEqual(23)
+        expect(f65.dénominateur()).toEqual(10)
+    });
+
+    it("should be possible to add 4/5 to 4/5 and get 8/5", () => {
+        const f45 = new Fraction(4, 5);
+        const f65 = f45.add(f45).simplify();
+        expect(f65.numérateur()).toEqual(8)
+        expect(f65.dénominateur()).toEqual(5)  
+    });
+    
+});
+
+describe("Soustraction de fractions", () => {
+    it("should be possible to substract 10/2 to 6/2 and get 4/2", () => {
+        const f102 = new Fraction(10, 2);
+        const f62 = new Fraction(6, 2);
+        const f42 = f102.substract(f62);
+        expect(f42.numérateur()).toEqual(4);
+        expect(f42.dénominateur()).toEqual(2);
+    }); 
+});

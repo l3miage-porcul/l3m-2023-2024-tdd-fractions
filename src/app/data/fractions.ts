@@ -41,6 +41,17 @@ export interface Fraction {
      * @param f La fraction avec laquelle on va diviser. Reste inchangée.
      */
     divide(f: Fraction): Fraction;
+
+    /**
+     * Ajoute la fraction f à la fraction courante.
+     * Renvoie le résultat sous forme simplifié.
+     * Renvoie une nouvelle fraction, résultat de cette addition
+     * La fraction reste inchangée.
+     * @param f La fraction que l'on va ajouter. Reste inchangée.
+     */
+    add(f: Fraction): Fraction;
+
+    substract(f: Fraction): Fraction;
 }
 
 /**
@@ -74,6 +85,11 @@ export class Fraction implements Fraction {
         return  (this.simplified && this.denominateur === 1) ? `${this.numerateur}` : `${this.seriN(this.numerateur)}/${this.seriN(this.denominateur)}`
     }
 
+    // Sérialise un entier Z, met les parenthèses si négatif
+    seriN(n: number): string {
+        return n >= 0 ? `${n}` : `(${n})`
+    } 
+
     simplify(): Fraction {
         
         const s = Math.sign(this.numerateur) * Math.sign(this.denominateur)
@@ -96,10 +112,14 @@ export class Fraction implements Fraction {
         return new Fraction(this.numerateur * f.denominateur, this.denominateur * f.numerateur);
     }
     
-    // Sérialise un entier Z, met les parenthèses si négatif
-    seriN(n: number): string {
-        return n >= 0 ? `${n}` : `(${n})`
-    } 
+    add(f: Fraction): Fraction {
+        return new Fraction(this.numerateur * f.denominateur + f.numerateur * this.denominateur, this.denominateur * f.denominateur);
+    }
+
+    substract(f: Fraction): Fraction {
+        if(this.denominateur === f.denominateur) return new Fraction(this.numerateur - f.numerateur, this.denominateur);
+        else return new Fraction(this.numerateur * f.denominateur - f.numerateur * this.denominateur, this.denominateur * f.denominateur);
+    }
 }
 
 
